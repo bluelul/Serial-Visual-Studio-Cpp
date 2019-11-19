@@ -4,7 +4,7 @@
 #include "stdafx.h"
 
 #include <conio.h> //_getch() function
-#include <string.h>
+#include <string>
 
 #include <windows.h>
 using namespace std;
@@ -13,7 +13,7 @@ void error_system(char *name) {
 	printf("\nError: %s \n", name);
 }
 
-int _tmain(int argc, _TCHAR* argv[])
+int main(int argc, char** argv)
 {
 	int ch;
 	char buffer[1];
@@ -24,11 +24,18 @@ int _tmain(int argc, _TCHAR* argv[])
 	HANDLE keyboard = GetStdHandle(STD_INPUT_HANDLE);
 	HANDLE screen = GetStdHandle(STD_OUTPUT_HANDLE);
 	DWORD mode;
-	LPCWSTR port_name = L"\\\\.\\COM10";
+	LPCWSTR port_name;
+	wstring wide_string = L"\\\\.\\COM10";
+
 	char init[] = ""; 
 
-	if (argc > 2)
-		swprintf_s((wchar_t *)&port_name, 128, L"\\\\.\\COM%c", argv[1][0]);
+	if (argc > 1)
+	{
+		string narrow_string = "\\\\.\\COM" + string(argv[1]);
+		wide_string = wstring(narrow_string.begin(), narrow_string.end());
+	}
+
+	port_name = wide_string.c_str();
 
 	// Open port
 	file = CreateFile(port_name, GENERIC_READ | GENERIC_WRITE, 0, NULL, OPEN_EXISTING, 0, NULL);
