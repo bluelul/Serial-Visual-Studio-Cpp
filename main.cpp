@@ -3,24 +3,15 @@
 
 #include "stdafx.h"
 
-#include <conio.h>
+#include <conio.h> //_getch() function
 #include <string.h>
 
-#define STRICT
-#define WIN32_LEAN_AND_MEAN
 #include <windows.h>
-
-#include <iostream>
 using namespace std;
 
 void error_system(char *name) {
-	WCHAR ptr[1024];
-	FormatMessage(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM, 0, GetLastError(), \
-		0, ptr, 1024, NULL);
-	wcout << endl << "Error " << name << ": " << ptr << endl;
-	LocalFree(ptr);
+	printf("\nError: %s \n", name);
 }
-
 
 int _tmain(int argc, _TCHAR* argv[])
 {
@@ -34,7 +25,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	HANDLE screen = GetStdHandle(STD_OUTPUT_HANDLE);
 	DWORD mode;
 	LPCWSTR port_name = L"\\\\.\\COM10";
-	char init[] = ""; // v.gr., "ATZ" resetea un modem por completo.
+	char init[] = ""; 
 
 	if (argc > 2)
 		swprintf_s((wchar_t *)&port_name, 128, L"\\\\.\\COM%c", argv[1][0]);
