@@ -3,11 +3,6 @@
 
 #include "stdafx.h"
 
-#include "targetver.h"
-#include <stdio.h>
-#include <tchar.h>
-
-// TODO: mencionar aquí los encabezados adicionales que el programa necesita
 #include <conio.h>
 #include <string.h>
 
